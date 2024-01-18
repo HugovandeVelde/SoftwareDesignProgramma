@@ -29,3 +29,32 @@ Het Observer Patroon wordt gebruikt om een een-op-veel afhankelijkheid te creër
 - *Uitbreidbaarheid:* Nieuwe observers kunnen eenvoudig worden toegevoegd zonder de bestaande code van `Minesweeper` te wijzigen.
 
 Het gebruik van het Observer Patroon maakt de code modulair, flexibel en gemakkelijk uitbreidbaar, wat onderhoud vereenvoudigt en de toevoeging van nieuwe functionaliteit mogelijk maakt.
+
+
+## Decorator Pattern in Minesweeper Application
+
+### Overzicht
+
+Het **Decorator-patroon** is een structureel ontwerppatroon dat het mogelijk maakt om gedrag dynamisch toe te voegen aan individuele objecten, zonder het gedrag van andere objecten van dezelfde klasse te wijzigen. Dit patroon volgt het Open-Gesloten Beginsel, waarbij wordt benadrukt dat een klasse open moet zijn voor uitbreiding maar gesloten voor wijzigingen.
+
+### Nut in Minesweeper
+
+- **Dynamische Uitbreiding:**
+    - Het Decorator-patroon maakt dynamische uitbreiding van functionaliteiten mogelijk zonder de bestaande code te wijzigen.
+    - Flexibele toevoeging van nieuwe functies aan Minesweeper zonder de kernklasse aan te passen.
+
+- **Open-Gesloten Beginsel:**
+    - Behoudt het Open-Gesloten Beginsel, waardoor klassen open zijn voor uitbreiding maar gesloten voor directe aanpassingen.
+    - Mogelijkheid om nieuwe functionaliteiten toe te voegen zonder de Minesweeper-klasse zelf te wijzigen.
+
+- **Samenstelling Boven Erfenis:**
+    - Het Decorator-patroon bevordert het gebruik van samenstelling boven erfelijkheid.
+    - Modulaire en begrijpelijke code door focus op samenstellen van kleine, gefocuste klassen.
+
+- **Scheiding van Zorgen:**
+    - Decorators scheiden zorgen door specifieke aspecten van functionaliteit te behandelen.
+    - In het Minesweeper-voorbeeld focust `LoggerDecorator` op loggen, en `GameObserver` op observeren van spelstaatveranderingen.
+
+- **Herbruikbare en Combineerbare Componenten:**
+    - Decorators zijn herbruikbare componenten die op verschillende manieren kunnen worden gecombineerd.
+    - Eenvoudige toevoeging of wijziging van decorators voor diverse functionaliteiten zonder de kernklasse te wijzigen.
