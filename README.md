@@ -16,7 +16,6 @@ De openbare `getInstance()` methode wordt gebruikt om de singleton-instantie van
 
 Nu kun je, wanneer je de spelstatus wilt benaderen of aanpassen, dit doen via de singleton-instantie, wat zorgt voor een meer gecontroleerde en consistente spelervaring.
 
-
 **Observer Patroon:**
 Het Observer Patroon wordt gebruikt om een een-op-veel afhankelijkheid te creëren tussen het `Minesweeper` object (observable) en meerdere `GameObserver` objecten (observers). Hierdoor worden de observers automatisch op de hoogte gebracht van veranderingen in de toestand van het spel.
 
@@ -29,7 +28,6 @@ Het Observer Patroon wordt gebruikt om een een-op-veel afhankelijkheid te creër
 - *Uitbreidbaarheid:* Nieuwe observers kunnen eenvoudig worden toegevoegd zonder de bestaande code van `Minesweeper` te wijzigen.
 
 Het gebruik van het Observer Patroon maakt de code modulair, flexibel en gemakkelijk uitbreidbaar, wat onderhoud vereenvoudigt en de toevoeging van nieuwe functionaliteit mogelijk maakt.
-
 
 ## Decorator Pattern in Minesweeper Application
 
@@ -72,4 +70,3 @@ Het **Factory Design Pattern** is een creational design pattern dat verantwoorde
 - **Codehergebruik**: Het bevordert hergebruik van bestaande code, omdat het de implementatie verbergt achter een gemeenschappelijke interface.
 
 - **Testbaarheid**: Het vergemakkelijkt het testen, omdat het gemakkelijk is om verschillende implementaties van een interface te vervangen door mock-objects tijdens tests.
-
