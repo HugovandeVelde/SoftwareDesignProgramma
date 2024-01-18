@@ -58,3 +58,18 @@ Het **Decorator-patroon** is een structureel ontwerppatroon dat het mogelijk maa
 - **Herbruikbare en Combineerbare Componenten:**
     - Decorators zijn herbruikbare componenten die op verschillende manieren kunnen worden gecombineerd.
     - Eenvoudige toevoeging of wijziging van decorators voor diverse functionaliteiten zonder de kernklasse te wijzigen.
+
+### Factory Design Pattern
+
+Het **Factory Design Pattern** is een creational design pattern dat verantwoordelijk is voor het creëren van objecten zonder expliciet de klasse van het object te specificeren. In plaats daarvan wordt een interface of een abstracte klasse gebruikt voor het maken van objecten, en de exacte subklasse die wordt geïnstantieerd, wordt tijdens runtime bepaald.
+
+#### Waarom Factory Design Pattern gebruiken?
+
+- **Flexibiliteit**: Het biedt flexibiliteit doordat de concrete implementatie van een object kan worden gewijzigd zonder de code te wijzigen die het object gebruikt.
+
+- **Encapsulatie**: Het scheidt de verantwoordelijkheid van het maken van objecten van het gebruik van objecten, wat leidt tot een betere encapsulatie.
+
+- **Codehergebruik**: Het bevordert hergebruik van bestaande code, omdat het de implementatie verbergt achter een gemeenschappelijke interface.
+
+- **Testbaarheid**: Het vergemakkelijkt het testen, omdat het gemakkelijk is om verschillende implementaties van een interface te vervangen door mock-objects tijdens tests.
+

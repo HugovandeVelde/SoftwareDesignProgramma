@@ -6,8 +6,9 @@ import java.util.List;
 
 // Minesweeper class
 public class Minesweeper {
-    private static final int SIZE = 9;
-    private static final int MINES = 10;
+    private static int SIZE = 10;  // Default size
+    private static int MINES = 10;  // Default number of mines
+
     private static final char UNREVEALED = '-';
     private static final char MINE = '*';
 
@@ -26,11 +27,33 @@ public class Minesweeper {
         placeMines();
     }
 
+    // Remove the final modifier and add a setter method for SIZE
+    public static void setSize(int size) {
+        SIZE = size;
+    }
+
+    // Remove the final modifier and add a setter method for MINES
+    public static void setMines(int mines) {
+        MINES = mines;
+    }
+
     public static Minesweeper getInstance() {
         if (instance == null) {
-            instance = new Minesweeper();
-            instance.initializeInstance();
+            synchronized (Minesweeper.class) {
+                if (instance == null) {
+                    instance = new Minesweeper();
+                }
+            }
         }
+        return instance;
+    }
+
+    public static Minesweeper createGame(int size, int mines) {
+        instance = new Minesweeper();
+        SIZE = size;
+        MINES = mines;
+        instance.initializeBoard();
+        instance.placeMines();
         return instance;
     }
 
@@ -71,39 +94,43 @@ public class Minesweeper {
     private void printBoard() {
         // Print column labels
         System.out.print("   ");
-        for (int i = 0; i < SIZE; i++) {
+        for (int i = 1; i <= SIZE; i++) {
             System.out.print(String.format("%3d ", i));
         }
-        System.out.println("\n   " + "-------------------------------------");
+        System.out.println("\n   " + "-----------------------------------------");
 
         // Print board
         for (int i = 0; i < SIZE; i++) {
             // Print row label
-            System.out.print(String.format("%2d |", i));
+            System.out.print(String.format("%2d |", i + 1));
             for (int j = 0; j < SIZE; j++) {
                 // Print playable positions
                 System.out.print(String.format(" %s |", board[i][j]));
             }
-            System.out.println("\n   " + "-------------------------------------");
+            System.out.println("\n   " + "-----------------------------------------");
         }
     }
 
     private boolean isValidMove(int row, int col) {
-        return row >= 0 && row < SIZE && col >= 0 && col < SIZE && board[row][col] == UNREVEALED;
+        return row >= 1 && row <= SIZE && col >= 1 && col <= SIZE && board[row - 1][col - 1] == UNREVEALED;
     }
 
     private void revealCell(int row, int col) {
-        if (mineBoard[row][col] == MINE) {
+        // Adjust indices to start from 0 internally
+        int internalRow = row - 1;
+        int internalCol = col - 1;
+
+        if (mineBoard[internalRow][internalCol] == MINE) {
             gameOver = true;
             System.out.println("Game Over! You hit a mine.");
         } else {
-            int count = countAdjacentMines(row, col);
-            board[row][col] = (char) (count + '0');
+            int count = countAdjacentMines(internalRow, internalCol);
+            board[internalRow][internalCol] = (char) (count + '0');
             if (count == 0) {
-                for (int i = row - 1; i <= row + 1; i++) {
-                    for (int j = col - 1; j <= col + 1; j++) {
-                        if (isValidMove(i, j)) {
-                            revealCell(i, j);
+                for (int i = internalRow - 1; i <= internalRow + 1; i++) {
+                    for (int j = internalCol - 1; j <= internalCol + 1; j++) {
+                        if (isValidMove(i + 1, j + 1)) {
+                            revealCell(i + 1, j + 1);
                         }
                     }
                 }
@@ -132,7 +159,7 @@ public class Minesweeper {
 
         while (!gameOver) {
             printBoard();
-            System.out.print("Enter row and column, separated by a space (e.g., 0 1): ");
+            System.out.print("Enter row and column, separated by a space (e.g., 1 2): ");
             int row = scanner.nextInt();
             int col = scanner.nextInt();
 
@@ -176,6 +203,15 @@ public class Minesweeper {
         for (Observer observer : observers) {
             observer.update();
         }
+    }
+    public void resetGame(int size, int mines) {
+        SIZE = size;
+        MINES = mines;
+        board = new char[SIZE][SIZE];
+        mineBoard = new char[SIZE][SIZE];
+        gameOver = false;
+        initializeBoard();
+        placeMines();
     }
 }
 
