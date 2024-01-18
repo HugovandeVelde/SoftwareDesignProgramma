@@ -1,10 +1,13 @@
-// Minesweeper.java
 import java.util.Random;
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
+
+// Minesweeper class
 public class Minesweeper {
-    private static final int SIZE = 9; // Adjust the size of the board as needed
-    private static final int MINES = 10; // Adjust the number of mines as needed
+    private static final int SIZE = 9;
+    private static final int MINES = 10;
     private static final char UNREVEALED = '-';
     private static final char MINE = '*';
 
@@ -12,10 +15,9 @@ public class Minesweeper {
     private char[][] mineBoard;
     private boolean gameOver;
 
-    // Singleton instance
     private static Minesweeper instance;
+    private List<Observer> observers = new ArrayList<>();
 
-    // Private constructor to prevent instantiation from outside the class
     private Minesweeper() {
         board = new char[SIZE][SIZE];
         mineBoard = new char[SIZE][SIZE];
@@ -23,14 +25,19 @@ public class Minesweeper {
         initializeBoard();
         placeMines();
     }
-    // Public method to get the singleton instance
+
     public static Minesweeper getInstance() {
         if (instance == null) {
             instance = new Minesweeper();
-            instance.initializeInstance(); // Call the initializeInstance method
+            instance.initializeInstance();
         }
         return instance;
     }
+
+    public char[][] getBoard() {
+        return board;
+    }
+
     private void initializeInstance() {
         board = new char[SIZE][SIZE];
         mineBoard = new char[SIZE][SIZE];
@@ -81,7 +88,6 @@ public class Minesweeper {
         }
     }
 
-
     private boolean isValidMove(int row, int col) {
         return row >= 0 && row < SIZE && col >= 0 && col < SIZE && board[row][col] == UNREVEALED;
     }
@@ -89,12 +95,11 @@ public class Minesweeper {
     private void revealCell(int row, int col) {
         if (mineBoard[row][col] == MINE) {
             gameOver = true;
-            System.out.println("Game Over! Je hebt een mijn geraakt.");
+            System.out.println("Game Over! You hit a mine.");
         } else {
             int count = countAdjacentMines(row, col);
             board[row][col] = (char) (count + '0');
             if (count == 0) {
-                // Auto-reveal adjacent cells if no mines nearby
                 for (int i = row - 1; i <= row + 1; i++) {
                     for (int j = col - 1; j <= col + 1; j++) {
                         if (isValidMove(i, j)) {
@@ -104,6 +109,8 @@ public class Minesweeper {
                 }
             }
         }
+        // Notify observers when the game state changes
+        notifyObservers();
     }
 
     private int countAdjacentMines(int row, int col) {
@@ -121,23 +128,22 @@ public class Minesweeper {
     public void playGame() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Welkom bij Minesweeper! Het bord is " + SIZE + " bij " + SIZE + " groot, en er zijn " + MINES + " mijnen.");
+        System.out.println("Welcome to Minesweeper! The board is " + SIZE + " by " + SIZE + " and there are " + MINES + " mines.");
 
         while (!gameOver) {
             printBoard();
-            System.out.print("Voor rij en kolom in, houdt een spatie tussen de twee cijfers (bijvoorbeeld, 0 1): ");
+            System.out.print("Enter row and column, separated by a space (e.g., 0 1): ");
             int row = scanner.nextInt();
             int col = scanner.nextInt();
 
             if (isValidMove(row, col)) {
                 revealCell(row, col);
             } else {
-                System.out.println("Ongeldige zet. Probeer opnieuw.");
+                System.out.println("Invalid move. Try again.");
             }
 
-            // Check for win
             if (isGameWon()) {
-                System.out.println("Gefeliciteerd! Je hebt gewonnen!");
+                System.out.println("Congratulations! You've won!");
                 gameOver = true;
             }
         }
@@ -155,4 +161,21 @@ public class Minesweeper {
         }
         return true;
     }
+
+    // Observer methods
+
+    public void addObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }
+
+    private void notifyObservers() {
+        for (Observer observer : observers) {
+            observer.update();
+        }
+    }
 }
+
