@@ -84,3 +84,5 @@ Het **Factory Design Pattern** is een creational design pattern dat verantwoorde
 - **Codehergebruik**: Het bevordert hergebruik van bestaande code, omdat het de implementatie verbergt achter een gemeenschappelijke interface.
 
 - **Testbaarheid**: Het vergemakkelijkt het testen, omdat het gemakkelijk is om verschillende implementaties van een interface te vervangen door mock-objects tijdens tests.
+
+### Hugo van de Velde, Student nummer 94934, Software Design,2023-2024, Project, Console Minesweeper
