@@ -1,4 +1,18 @@
-### Uitleg:
+# Project Introductie: Console Minesweeper
+
+Welkom bij mijn project: een consoleversie van Minesweeper! 💣 
+
+## Achtergrond
+
+Helaas kon ik geen teamgenoot vinden, vandaar dat ik dit project in mijn eentje heb gedaan
+
+## GitHub
+
+De broncode en verdere ontwikkeling zijn te vinden op [GitHub](https://github.com/HugovandeVelde/SoftwareDesignProgramma). 
+
+Veel plezier met spelen! 🚀
+
+### Uitleg over de gebruikte Design Patterns
 
 **Singleton Patroon:**
 De klasse `Minesweeper` heeft nu een privé statische instantievariabele en een privéconstructor. De constructor is privé om externe instantiatie van de klasse te voorkomen.
